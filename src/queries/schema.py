@@ -4,14 +4,16 @@ import logging
 # Third Party Library Imports
 
 # Local Library Imports
-import src
+import src.core.classes as classes
 
 # Configure Logging
 log = logging.getLogger('log')
 
 
-def create_database(database: src.core_classes.database) -> list[str]:
+def create_database(database: classes.database) -> list[str]:
     '''Generates a series of sql statements to create a new database'''
+    if isinstance(database, classes.database) is False:
+        raise TypeError(f"DDATABASE IS NOT VALID TYPE; {type(database)}")
 
     response = []
 
@@ -24,7 +26,7 @@ def create_database(database: src.core_classes.database) -> list[str]:
     return response
 
 
-def create_table(table: src.core_classes.table, db_name: str = None) -> list[str]:
+def create_table(table: classes.table, db_name: str = None) -> list[str]:
     '''Generates a series of sql statements to create a new table'''
 
     response = []
@@ -42,7 +44,7 @@ def create_table(table: src.core_classes.table, db_name: str = None) -> list[str
             sql = f"{sql}({field.length})"
         if field.increment is True:
             sql = f"{sql} AUTO_INCREMENT"
-        if field.null is False and field.primary is False:
+        if field.null is False:
             sql = f"{sql} NOT NULL"
         if field.primary is True:
             sql = f"{sql} PRIMARY KEY"
@@ -54,7 +56,7 @@ def create_table(table: src.core_classes.table, db_name: str = None) -> list[str
     return response
 
 
-def create_field(field: src.core_classes.field, table_name: str, db_name: str) -> list[str]:
+def create_field(field: classes.field, table_name: str, db_name: str) -> list[str]:
     '''Generates a series of sql statements to create a new table'''
 
     log.debug(f"SQLGEN: {field}")
@@ -66,9 +68,8 @@ def create_field(field: src.core_classes.field, table_name: str, db_name: str) -
     if field.length is not None:
         sql = f"{sql}({field.length})"
     if field.increment is True:
-        log.debug(f"SQLGEN: {type(field.increment)}")
         sql = f"{sql} AUTO_INCREMENT"
-    if field.null is False and field.primary is False:
+    if field.null is False:
         sql = f"{sql} NOT NULL"
     if field.primary is True:
         sql = f"{sql} PRIMARY KEY"
