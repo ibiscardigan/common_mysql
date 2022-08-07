@@ -1,5 +1,5 @@
 import pytest
-import csql.classes as classes
+import src.csql.classes as classes
 
 expected_field = classes.field(
     name="test",

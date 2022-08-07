@@ -4,7 +4,7 @@ import logging
 # Third Party Library Imports
 
 # Local Library Imports
-import csql.classes as classes
+import src.csql.classes as classes
 
 # Configure Logging
 log = logging.getLogger('log')
@@ -13,7 +13,7 @@ log = logging.getLogger('log')
 def create_database(database: classes.database) -> list[str]:
     '''Generates a series of sql statements to create a new database'''
     if isinstance(database, classes.database) is False:
-        raise TypeError(f"DDATABASE IS NOT VALID TYPE; {type(database)}")
+        raise TypeError(f"DATABASE IS NOT VALID TYPE; {type(database)}")
 
     response = []
 
@@ -26,7 +26,7 @@ def create_database(database: classes.database) -> list[str]:
     return response
 
 
-def create_table(table: classes.table, db_name: str = None) -> list[str]:
+def create_table(table: classes.table, db_name: str | None = None) -> list[str]:
     '''Generates a series of sql statements to create a new table'''
 
     response = []

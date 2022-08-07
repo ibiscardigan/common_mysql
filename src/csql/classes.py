@@ -21,8 +21,8 @@ class field():
     def __init__(self,
                  name: str,
                  field_type: str,
-                 length: int = None,
-                 default: str = None,
+                 length: int | None = None,
+                 default: str | None = None,
                  null: bool = True,
                  primary: bool = False,
                  increment: bool = False) -> None:
@@ -85,13 +85,13 @@ class table():
                 raise TypeError(f"FIELDS ARE NOT ALL TYPE FIELD; {type(new_field)}")
         pass
 
-    def lookup(self, field_name: str) -> field:
+    def lookup(self, field_name: str) -> field | None:
         '''Looks for the field within the db, if found, returns the field object'''
 
         for field in self.fields:
             if field.name == field_name:
                 return field
-        return
+        return None
 
     def dict(self):
         '''Returns the attributes as a dict'''
@@ -107,7 +107,7 @@ class table():
         else:
             raise TypeError(f"NEW FIELD IS NOT A FIELD OBJECT; {type(new_field)}")
 
-        return self.fields
+        return
 
 
 class database():
@@ -125,14 +125,14 @@ class database():
                 raise TypeError(f"TABLES ARE NOT ALL TYPE TABLE; {type(new_table)}")
         pass
 
-    def lookup(self, table_name: str) -> table:
+    def lookup(self, table_name: str) -> table | None:
         '''Looks for the table within the db, if found, returns the table object'''
 
         for table in self.tables:
             if table.name == table_name:
                 return table
 
-        return
+        return None
 
     def dict(self):
         '''Returns the attributes as a dict'''
@@ -142,7 +142,7 @@ class database():
 
         return response
 
-    def add_table(self, new_table: table) -> None:
+    def add_table(self, new_table: table) -> list[table]:
         if isinstance(new_table, table) is True:
             self.tables.append(new_table)
         else:

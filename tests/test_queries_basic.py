@@ -1,5 +1,5 @@
 import pytest
-import csql.queries_basic as sql
+import src.csql.queries_basic as sql
 
 
 class Test_Select:
