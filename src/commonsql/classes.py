@@ -149,3 +149,18 @@ class database():
             raise TypeError(f"NEW TABLE IS NOT A TABLE OBJECT; {type(new_table)}")
 
         return self.tables
+
+
+class schema():
+    def __init__(self, name) -> None:
+        self.databases = []
+        pass
+
+    def lookup(self, database_name: str) -> database | None:
+        '''Looks for the table within the db, if found, returns the table object'''
+
+        for database in self.databases:
+            if database.name == database_name:
+                return database
+
+        return None
