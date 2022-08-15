@@ -4,7 +4,7 @@ import logging
 # Third Party Library Imports
 
 # Local Library Imports
-import src.csql.classes as classes
+import src.commonsql.classes as classes
 
 # Configure Logging
 log = logging.getLogger('log')
