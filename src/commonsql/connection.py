@@ -117,10 +117,11 @@ class connection:  # pragma: no cover
 
         return
 
-    def build_schema(self) -> list[classes.database]:
+    def build_schema(self) -> classes.schema:
         '''Queries a MySQL instance and returns a list of the database with their structure as dict'''
 
         self.cursor = self.connection.cursor()
+        self.schema = classes.schema()
 
         try:
             self.databases = self.get_databases()
@@ -129,7 +130,7 @@ class connection:  # pragma: no cover
 
         self.cursor.close()
 
-        return self.databases
+        return self.schema
 
     def lookup(self, database_name: str) -> classes.database | Any:
         '''Looks for a database in the schema, and if found returns it'''
@@ -164,7 +165,7 @@ class connection:  # pragma: no cover
                 self.use_database(database_name=database.name)
 
                 database.tables = self.get_tables()
-                response.append(database)
+                self.schema.databases.append(database)
                 log.info(f"DATABASE: PROCESSED: {database}")
 
         return response
