@@ -3,6 +3,7 @@ import configparser
 import logging
 import pytest
 from typing import Any
+import sys
 
 # Third Party Library Imports
 import mysql.connector
@@ -116,7 +117,7 @@ class connection:  # pragma: no cover
 
         return
 
-    def build_schema(self) -> list:
+    def build_schema(self) -> list[classes.database]:
         '''Queries a MySQL instance and returns a list of the database with their structure as dict'''
 
         self.cursor = self.connection.cursor()
@@ -130,15 +131,15 @@ class connection:  # pragma: no cover
 
         return self.databases
 
-    def lookup(self, database_name: str) -> classes.database:
+    def lookup(self, database_name: str) -> classes.database | Any:
         '''Looks for a database in the schema, and if found returns it'''
         for db in self.databases:
             if db.name == database_name:
                 return db
 
-        return
+        return None
 
-    def get_databases(self) -> list:
+    def get_databases(self) -> list[classes.database]:
         '''Queries a MySQL instance and returns a list of the databases'''
 
         sql = "SHOW DATABASES"
@@ -181,7 +182,7 @@ class connection:  # pragma: no cover
 
         return
 
-    def get_tables(self) -> list:
+    def get_tables(self) -> list[classes.table]:
         '''Takes in a database name and queries for the tables'''
         sql = "SHOW TABLES"
 
@@ -202,7 +203,7 @@ class connection:  # pragma: no cover
 
         return response
 
-    def get_fields(self, table_name: str) -> list:
+    def get_fields(self, table_name: str) -> list[classes.field]:
         '''Queries for the fields in a table'''
         sql = f"SHOW COLUMNS FROM {table_name}"
 
@@ -219,7 +220,7 @@ class connection:  # pragma: no cover
 
             field_data = classes.field(
                 name=record[0],
-                type=field_type[0].upper()
+                field_type=field_type[0].upper()
             )
             if len(field_type) > 1:
                 if field_type[1].isnumeric() is True:
