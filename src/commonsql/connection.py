@@ -9,7 +9,7 @@ import sys
 import mysql.connector
 
 # Local Library Imports
-import src.commonsql.classes as classes
+import commonsql.classes as classes
 
 # Configure Logging
 log = logging.getLogger('log')

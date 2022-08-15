@@ -1,5 +1,5 @@
 import pytest
-import src.commonsql.classes as classes
+import commonsql.classes as classes
 import src.commonsql.execute_schema as sql
 
 test_field = classes.field(name="test_field", field_type="INT", null=False, primary=True, increment=True)
