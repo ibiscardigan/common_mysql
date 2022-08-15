@@ -1,5 +1,5 @@
 import pytest
-import src.commonsql.classes as classes
+import commonsql.classes as classes
 
 expected_field = classes.field(
     name="test",
