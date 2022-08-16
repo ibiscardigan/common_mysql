@@ -1,5 +1,5 @@
 import pytest
-import src.commonsql.queries_basic as sql
+import commonsql.queries_basic as sql
 
 
 class Test_Select:

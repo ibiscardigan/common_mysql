@@ -152,7 +152,7 @@ class database():
 
 
 class schema():
-    def __init__(self, name) -> None:
+    def __init__(self) -> None:
         self.databases = []
         pass
 

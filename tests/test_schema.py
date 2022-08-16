@@ -1,6 +1,6 @@
 import pytest
 import commonsql.classes as classes
-import src.commonsql.execute_schema as sql
+import commonsql.execute_schema as sql
 
 test_field = classes.field(name="test_field", field_type="INT", null=False, primary=True, increment=True)
 fsql = f"{test_field.name} {test_field.type} AUTO_INCREMENT NOT NULL PRIMARY KEY"
